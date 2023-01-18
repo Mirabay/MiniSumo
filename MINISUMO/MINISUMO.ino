@@ -63,14 +63,14 @@ void loop() {
   tD = pulseIn(EchoD, HIGH); //obtenemos el ancho del pulso
   tR = pulseIn(EchoR, HIGH); //obtenemos el ancho del pulso
 
-  // dF = tF/59;             //escalamos el tiempo a una distancia en cm
+  dF = tF/59;             //escalamos el tiempo a una distancia en cm
   dD = tD/59;             //escalamos el tiempo a una distancia en cm
   dR = tR/59;             //escalamos el tiempo a una distancia en cm
   
-  // Serial.print("Distancia de Frente: ");
-  // Serial.print(dF);      //Enviamos serialmente el valor de la distancia
-  // Serial.print("cm");
-  // Serial.println();
+  Serial.print("Distancia de Frente: ");
+  Serial.print(dF);      //Enviamos serialmente el valor de la distancia
+  Serial.print("cm");
+  Serial.println();
   Serial.print("Distancia de Derecha: ");
   Serial.print(dD);      //Enviamos serialmente el valor de la distancia
   Serial.print("cm");

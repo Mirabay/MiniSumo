@@ -14,21 +14,21 @@ void setup() {
  
 void loop() {
   front();
-  delay(300);
+  delay(3000);
   back();
-  delay(500);
+  delay(3000);
   
 }
 void front(){
   digitalWrite(mA, HIGH);
   digitalWrite(mA1, LOW);
-  digitalWrite(mB, HIGH);
-  digitalWrite(mB1, LOW);
+  digitalWrite(mB1, HIGH);
+  digitalWrite(mB, LOW);
 }
 
 void back(){
   digitalWrite(mA, LOW);
   digitalWrite(mA1, HIGH);
-  digitalWrite(mB, LOW);
-  digitalWrite(mB1, HIGH);
+  digitalWrite(mB1, LOW);
+  digitalWrite(mB, HIGH);
 }

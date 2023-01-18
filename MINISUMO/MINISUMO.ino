@@ -13,7 +13,7 @@ void setup() {
 }
  
 void loop() {
-  fron();
+  front();
   delay(300);
   back();
   delay(500)

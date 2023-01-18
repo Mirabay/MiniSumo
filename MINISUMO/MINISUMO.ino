@@ -1,22 +1,44 @@
 // Sensor ultraSonico
-const int Trigger = 2;   //Pin digital 2 para el Trigger del sensor
-const int Echo = 3;   //Pin digital 3 para el echo del sensor
+// Sensor Frontal
+const int TriggerF = 2;   //Pin digital 2 para el Trigger del sensor
+const int EchoF = 3;   //Pin digital 3 para el echo del sensor
+// Sensor derecho
+const int TriggerR = 4;
+const int EchoR = 5;
+// Sensor Izquierdo
+const int TriggerD = 6;
+const int EchoD = 7;
 
-long t; //timepo que demora en llegar el eco
-long d; //distancia en centimetros
+long tF; //timepo que demora en llegar el eco
+long dF; //distancia en centimetros
+
+long tR; //timepo que demora en llegar el eco
+long dR; //distancia en centimetros
+
+long tD; //timepo que demora en llegar el eco
+long dD; //distancia en centimetros
 
 //Motores
-int mA =11;
-int mA1=10;
-int mB=9;
-int mB1=8;
+const int mA =11;
+const int mA1=10;
+const int mB=9;
+const int mB1=8;
 
 
 void setup() {
   Serial.begin(9600);//iniciailzamos la comunicación
-  pinMode(Trigger, OUTPUT); //pin como salida
-  pinMode(Echo, INPUT);  //pin como entrada
-  digitalWrite(Trigger, LOW);//Inicializamos el pin con 0
+
+  pinMode(TriggerF, OUTPUT); //pin como salida
+  pinMode(EchoF, INPUT);  //pin como entrada
+  digitalWrite(TriggerF, LOW);//Inicializamos el pin con 0
+
+  pinMode(TriggerD, OUTPUT); //pin como salida
+  pinMode(EchoD, INPUT);  //pin como entrada
+  digitalWrite(TriggerD, LOW);//Inicializamos el pin con 0
+
+  pinMode(TriggerR, OUTPUT); //pin como salida
+  pinMode(EchoR, INPUT);  //pin como entrada
+  digitalWrite(TriggerR, LOW);//Inicializamos el pin con 0
 
 // Inicializamos el motor derecho
   pinMode(mA, OUTPUT);
@@ -28,23 +50,36 @@ void setup() {
  
 void loop() {
 
-  digitalWrite(Trigger, HIGH);
+  digitalWrite(TriggerF, HIGH);
+  digitalWrite(TriggerD, HIGH);
+  digitalWrite(TriggerR, HIGH);
   delayMicroseconds(10);          //Enviamos un pulso de 10us
-  digitalWrite(Trigger, LOW);
+  digitalWrite(TriggerF, LOW);
+  digitalWrite(TriggerD, LOW);
+  digitalWrite(TriggerR, LOW);
 
-  t = pulseIn(Echo, HIGH); //obtenemos el ancho del pulso
- d = t/59;             //escalamos el tiempo a una distancia en cm
+
+  tF = pulseIn(EchoF, HIGH); //obtenemos el ancho del pulso
+  tD = pulseIn(EchoD, HIGH); //obtenemos el ancho del pulso
+  tR = pulseIn(EchoR, HIGH); //obtenemos el ancho del pulso
+
+  // dF = tF/59;             //escalamos el tiempo a una distancia en cm
+  dD = tD/59;             //escalamos el tiempo a una distancia en cm
+  dR = tR/59;             //escalamos el tiempo a una distancia en cm
   
-  Serial.print("Distancia: ");
-  Serial.print(d);      //Enviamos serialmente el valor de la distancia
+  // Serial.print("Distancia de Frente: ");
+  // Serial.print(dF);      //Enviamos serialmente el valor de la distancia
+  // Serial.print("cm");
+  // Serial.println();
+  Serial.print("Distancia de Derecha: ");
+  Serial.print(dD);      //Enviamos serialmente el valor de la distancia
+  Serial.print("cm");
+  Serial.println();
+  Serial.print("Distancia de Izquierda: ");
+  Serial.print(dR);      //Enviamos serialmente el valor de la distancia
   Serial.print("cm");
   Serial.println();
   delay(100);          //Hacemos una pausa de 100ms
-  
-  front();
-  delay(3000);
-  back();
-  delay(3000);
   
 }
 void front(){

@@ -13,10 +13,22 @@ void setup() {
 }
  
 void loop() {
+  fron();
+  delay(300);
+  back();
+  delay(500)
+  
+}
+void front(){
   digitalWrite(mA, HIGH);
   digitalWrite(mA1, LOW);
-  delay(3000);
+  digitalWrite(mB, HIGH);
+  digitalWrite(mB1, LOW);
+}
+
+void back(){
   digitalWrite(mA, LOW);
   digitalWrite(mA1, HIGH);
-  delay(3000);
+  digitalWrite(mB, LOW);
+  digitalWrite(mB1, HIGH);
 }

@@ -16,7 +16,7 @@ void loop() {
   front();
   delay(300);
   back();
-  delay(500)
+  delay(500);
   
 }
 void front(){

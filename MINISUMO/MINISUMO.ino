@@ -35,7 +35,7 @@ void setup() {
 }
  
 void loop() {
-
+  // Esto se va a eliminar, namas es para que me aparezcan los valores de la distancia
   Serial.print("Sensor frontal(1):");
   Serial.print(sensor_1.ping_cm());
   Serial.println()

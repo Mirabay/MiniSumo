@@ -1,45 +1,31 @@
 // Sensor ultraSonico
 // Sensor Frontal
-const int TriggerF = 2;   //Pin digital 2 para el Trigger del sensor
-const int EchoF = 3;   //Pin digital 3 para el echo del sensor
+#include <NewPing.h>
+#define TriggerF  2   //Pin digital 2 para el Trigger del sensor
+#define EchoF  3 //Pin digital 3 para el echo del sensor
 // Sensor derecho
-const int TriggerR = 4;
-const int EchoR = 5;
+#define TriggerR  4
+#define EchoR  5
 // Sensor Izquierdo
-const int TriggerD = 6;
-const int EchoD = 7;
+#define TriggerD  6
+#define EchoD  7
 
-long tF; //timepo que demora en llegar el eco
-long dF; //distancia en centimetros
+#define MAX_DIST 200
 
-long tR; //timepo que demora en llegar el eco
-long dR; //distancia en centimetros
-
-long tD; //timepo que demora en llegar el eco
-long dD; //distancia en centimetros
+// Inicializamos la libreria de Newping, generando 3 sensores
+NewPing sensor_1(TriggerF,EchoF,MAX_DIST);
+NewPing sensor_2(TriggerD,EchoD,MAX_DIST);
+NewPing sensor_3(TriggerR,EchoR,MAX_DIST);
 
 //Motores
-const int mA =11;
-const int mA1=10;
-const int mB=9;
-const int mB1=8;
+#define mA 11
+#define mA1 10
+#define mB 9
+#define mB1 8
 
 
 void setup() {
-  Serial.begin(9600);//iniciailzamos la comunicación
-
-  pinMode(TriggerF, OUTPUT); //pin como salida
-  pinMode(EchoF, INPUT);  //pin como entrada
-  digitalWrite(TriggerF, LOW);//Inicializamos el pin con 0
-
-  pinMode(TriggerD, OUTPUT); //pin como salida
-  pinMode(EchoD, INPUT);  //pin como entrada
-  digitalWrite(TriggerD, LOW);//Inicializamos el pin con 0
-
-  pinMode(TriggerR, OUTPUT); //pin como salida
-  pinMode(EchoR, INPUT);  //pin como entrada
-  digitalWrite(TriggerR, LOW);//Inicializamos el pin con 0
-
+  Serial.begin(9600);
 // Inicializamos el motor derecho
   pinMode(mA, OUTPUT);
   pinMode(mA1, OUTPUT);
@@ -50,37 +36,15 @@ void setup() {
  
 void loop() {
 
-  digitalWrite(TriggerF, HIGH);
-  digitalWrite(TriggerD, HIGH);
-  digitalWrite(TriggerR, HIGH);
-  delayMicroseconds(10);          //Enviamos un pulso de 10us
-  digitalWrite(TriggerF, LOW);
-  digitalWrite(TriggerD, LOW);
-  digitalWrite(TriggerR, LOW);
-
-
-  tF = pulseIn(EchoF, HIGH); //obtenemos el ancho del pulso
-  tD = pulseIn(EchoD, HIGH); //obtenemos el ancho del pulso
-  tR = pulseIn(EchoR, HIGH); //obtenemos el ancho del pulso
-
-  dF = tF/59;             //escalamos el tiempo a una distancia en cm
-  dD = tD/59;             //escalamos el tiempo a una distancia en cm
-  dR = tR/59;             //escalamos el tiempo a una distancia en cm
-  
-  Serial.print("Distancia de Frente: ");
-  Serial.print(dF);      //Enviamos serialmente el valor de la distancia
-  Serial.print("cm");
-  Serial.println();
-  Serial.print("Distancia de Derecha: ");
-  Serial.print(dD);      //Enviamos serialmente el valor de la distancia
-  Serial.print("cm");
-  Serial.println();
-  Serial.print("Distancia de Izquierda: ");
-  Serial.print(dR);      //Enviamos serialmente el valor de la distancia
-  Serial.print("cm");
-  Serial.println();
-  delay(100);          //Hacemos una pausa de 100ms
-  
+  Serial.print("Sensor frontal(1):");
+  Serial.print(sensor_1.ping_cm());
+  Serial.println()
+  Serial.print("Sensor Derecho(2):");
+  Serial.print(sensor_2.ping_cm());
+  Serial.println()
+  Serial.print("Sensor Izquierdo(3):");
+  Serial.print(sensor_3.ping_cm());
+  Serial.println()
 }
 void front(){
   digitalWrite(mA, HIGH);
